@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Тестовое задание</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts/main_script.js"></script>
+    <script src="scripts/locations.js"></script>
+    <link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Galdeano&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/logo.svg" alt="Logo">
+            <p class="version"></p>
+        </div>
+        <a href="" class="exit"><img src="images/exit.svg" alt="Exit"></a>
+    </header>
+    <div class="main">
+        <div class="menu">
+            <div class="menu-block" data-tab="property"><img src="images/property.svg" alt="">Имущество</div>
+            <div class="menu-block" data-tab="inventory"><img src="images/inventory.svg" alt="">Инвентаризация</div>
+            <div class="menu-block" data-tab="staff"><img src="images/staff.svg" alt="">Сотрудники</div>
+            <div class="menu-block" data-tab="notifications"><img src="images/notifications.svg" alt="">Уведомления</div>
+            <div class="menu-block active" data-tab="locations"><img src="images/locations.svg" alt="">Локации</div>
+            <div class="menu-block" data-tab="settings"><img src="images/settings.svg" alt="">Настройки</div>
+            <div class="hide-menu"><img src="images/close.svg" alt="">Скрыть меню</div>
+        </div>
+        <div class="main-tab">
+            <div id="property" class="tab">
+                <h1>Имущество</h1>
+            </div>
+            <div id="inventory" class="tab">
+                <h1>Инвентаризация</h1>
+            </div>
+            <div id="staff" class="tab">
+                <h1>Сотрудники</h1>
+            </div>
+            <div id="notifications" class="tab">
+                <h1>Уведомления</h1>
+            </div>
+            <div id="locations" class="tab active">
+                <h1>Локации</h1>
+                <div class="user-buttons">
+                    <div class="user-buttons-flex">
+                        <div class="user-button button-small active" data-user="user-all-locations">Все локации</div>
+                        <div class="user-button button-small" data-user="user-export-import">Импорт/Экспорт</div>
+                        <div class="user-button button-small" data-user="user-settings">Настройки</div>
+                    </div>
+                    <div class="button-filled-big sync"><img src="images/sync.svg" alt="">синхронизация</div>
+                </div>
+                <div class="tab-inner">
+                    <div class="user-tab active" id="user-all-locations">
+                        <div class="tab-filter">
+                            <div class="button-filled-big"><img src="images/plus-nobg.svg" alt="">создать локацию</div>
+                            <div class="main-filter">
+                                <div class="input-checkbox">
+                                    <input type="checkbox" class="checkbox" id="checkbox" required>
+                                    <label for="checkbox"></label><span>Поиск по точному вхождению</span>
+                                </div>
+                                <div class="search">
+                                    <img src="images/search.svg" alt="">
+                                    <label>
+                                        <input placeholder="поиск">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="locations">
+
+                        </div>
+                    </div>
+                    <div class="user-tab" id="user-export-import">
+                        nothing here
+                    </div>
+                    <div class="user-tab" id="user-settings">
+                        nothing here
+                    </div>
+                </div>
+            </div>
+            <div id="settings" class="tab">
+                <h1>Настройки</h1>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="footer-for-tab">
+            <div class="button-filled-big">
+                <img src="images/save.svg" alt="">
+                Сохранить
+            </div>
+            <div class="button-plaid-big padding50">
+                Отменить
+            </div>
+        </div>
+        <div class="footer-info">
+            <p class="receiving">Последний приём 20.09.2021 18:36:21</p>
+            <p class="broadcast">Последняя передача 20.09.2021 18:38:21</p>
+        </div>
+        <a href="" class="documentation">
+            <img src="images/documentation.svg" alt="">
+            Документация
+        </a>
+    </footer>
+</body>
+</html>
