@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width">
     <title>Тестовое задание</title>
     <link rel="stylesheet" href="style.css">
-    <script src="scripts/script.js"></script>
-    <script src="scripts/locations.js"></script>
+    <script src="scripts/script.js" type="module"></script>
+    <script src="scripts/locations.js" type="module"></script>
     <link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,11 +26,19 @@
             <div class="menu-block" data-tab="inventory"><img src="images/inventory.svg" alt="">Инвентаризация</div>
             <div class="menu-block" data-tab="staff"><img src="images/staff.svg" alt="">Сотрудники</div>
             <div class="menu-block" data-tab="notifications"><img src="images/notifications.svg" alt="">Уведомления</div>
-            <div class="menu-block active" data-tab="locations"><img src="images/locations.svg" alt="">Локации</div>
+            <div class="menu-block" data-tab="locations"><img src="images/locations.svg" alt="">Локации</div>
             <div class="menu-block" data-tab="settings"><img src="images/settings.svg" alt="">Настройки</div>
             <div class="hide-menu"><img src="images/close.svg" alt="">Скрыть меню</div>
         </div>
         <div class="main-tab">
+            <div class="tab active">
+                <h1>
+                    Чтобы увидеть контент нужно переключить вкладку в меню
+                </h1>
+                <h1 style="margin-top: 245px">
+                    <-Контент есть только во вкладках "Настройки" и "Локации" соотвественно дизайну
+                </h1>
+            </div>
             <div id="property" class="tab">
                 <h1>Имущество</h1>
             </div>
@@ -43,23 +51,23 @@
             <div id="notifications" class="tab">
                 <h1>Уведомления</h1>
             </div>
-            <div id="locations" class="tab active">
-                <h1>Локации</h1>
+            <div id="locations" class="tab">
+                <h1 class="loc-tab-name">Локации</h1>
                 <div class="user-buttons">
                     <div class="user-buttons-flex">
-                        <div class="user-button button-small active" data-user="user-all-locations">Все локации</div>
+                        <div class="user-button button-small" data-user="user-all-locations">Все локации</div>
                         <div class="user-button button-small" data-user="user-export-import">Импорт/Экспорт</div>
                         <div class="user-button button-small" data-user="user-settings">Настройки</div>
                     </div>
                     <div class="button-filled-big sync"><img src="images/sync.svg" alt="">синхронизация</div>
                 </div>
                 <div class="tab-inner">
-                    <div class="user-tab active" id="user-all-locations">
+                    <div class="user-tab" id="user-all-locations">
                         <div class="tab-filter">
-                            <div class="button-filled-big"><img src="images/plus-nobg.svg" alt="">создать локацию</div>
+                            <div class="button-filled-big create-loc"><img src="images/plus-nobg.svg" alt="">создать локацию</div>
                             <div class="main-filter">
                                 <div class="input-checkbox">
-                                    <input type="checkbox" class="checkbox" id="checkbox" required>
+                                    <input type="checkbox" class="checkbox" id="checkbox">
                                     <label for="checkbox"></label><span>Поиск по точному вхождению</span>
                                 </div>
                                 <div class="search">
@@ -83,8 +91,234 @@
                 </div>
             </div>
             <div id="settings" class="tab">
-                <h1>Настройки</h1>
+                <h1 class="settings-tab-name">Настройки</h1>
+                <div class="user-buttons">
+                    <div class="user-buttons-flex">
+                        <div class="user-button button-small" data-user="property-user">Имущество</div>
+                        <div class="user-button button-small" data-user="inventory-user">Инвентаризация</div>
+                        <div class="user-button button-small" data-user="staff-user">Сотрудники</div>
+                        <div class="user-button button-small" data-user="locations-user">Локации</div>
+                        <div class="user-button button-small" data-user="notifications-user">Уведомления</div>
+                        <div class="user-button button-small" data-user="guide-user">Справочники</div>
+                        <div class="user-button button-small" data-user="user-user">Пользователь</div>
+                    </div>
+                </div>
+                <div class="tab-inner">
+                    <div class="user-tab" id="property-user">
+                        nothing here
+                    </div>
+                    <div class="user-tab" id="inventory-user">
+                        nothing here
+                    </div>
+                    <div class="user-tab" id="staff-user">
+                        nothing here
+                    </div>
+                    <div class="user-tab" id="locations-user">
+                        <h1>
+                            Настройка полей таблицы
+                        </h1>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th><img src="images/change-size.svg" alt="">Описание</th>
+                                <th><img src="images/change-size.svg" alt="">Сортировка</th>
+                                <th><img src="images/change-size.svg" alt="">ID</th>
+                                <th><img src="images/change-size.svg" alt="">Тип поля</th>
+                                <th><img src="images/change-size.svg" alt="">Выводить в таблицу</th>
+                                <th><img src="images/change-size.svg" alt="">Обязательно</th>
+                                <th><img src="images/change-size.svg" alt="">Удалить</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><img src="images/tripple-dots.svg" class="toggle" alt="Toggle">Название <img src="images/editing.svg" alt="edit"></td>
+                                <td style="text-align: left;padding-left: 0"><img src="images/help.svg" style="margin: 0" alt=""></td>
+                                <td><input type="text" value="500"></td>
+                                <td>1001</td>
+                                <td style="text-align: left; padding-left: 75px">Строка</td>
+                                <td><input type="checkbox" class="checkbox" id="checkbox0" checked><label for="checkbox0"></label></td>
+                                <td><input type="checkbox" class="checkbox" id="checkbox1" checked><label for="checkbox1"></label></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><img src="images/tripple-dots.svg" class="toggle" alt="Toggle">Цена <img src="images/editing.svg" alt="edit"></td>
+                                <td></td>
+                                <td><input type="text" value="510"></td>
+                                <td>1002</td>
+                                <td style="text-align: left; padding-left: 75px">Число</td>
+                                <td><input type="checkbox" class="checkbox" id="checkbox3" checked><label for="checkbox3"></label></td>
+                                <td><input type="checkbox" class="checkbox" id="checkbox4" checked><label for="checkbox4"></label></td>
+                                <td><input type="checkbox" class="checkbox" id="checkbox5" checked><label for="checkbox5"></label></td>
+                            </tr>
+                            <tr>
+                                <td><img src="images/tripple-dots.svg" class="toggle" alt="Toggle">МОЛ <img src="images/editing.svg" alt="edit"></td>
+                                <td></td>
+                                <td><input type="text" value="520"></td>
+                                <td>1003</td>
+                                <td style="text-align: left; padding-left: 75px">Справочник <img src="images/guide.svg" alt="directory"></td>
+                                <td><input type="checkbox" class="checkbox" id="checkbox6" checked><label for="checkbox6"></label></td>
+                                <td><input type="checkbox" class="checkbox" id="checkbox7" checked><label for="checkbox7"></label></td>
+                                <td><input type="checkbox" class="checkbox" id="checkbox8"><label for="checkbox8"></label></td>
+                            </tr>
+                            <tr>
+                                <td><img src="images/tripple-dots.svg" class="toggle" alt="Toggle">Фото <img src="images/editing.svg" alt="edit"></td>
+                                <td></td>
+                                <td><input type="text" value="530"></td>
+                                <td>1004</td>
+                                <td style="text-align: left; padding-left: 75px">Файл</td>
+                                <td><input type="checkbox" class="checkbox" id="checkbox9" checked><label for="checkbox9"></label></td>
+                                <td><input type="checkbox" class="checkbox" id="checkbox10" checked><label for="checkbox10"></label></td>
+                                <td><input type="checkbox" class="checkbox" id="checkbox11"><label for="checkbox11"></label></td>
+                            </tr>
+                            <tr>
+                                <td><img src="images/tripple-dots.svg" class="toggle" alt="Toggle">Цвет <img src="images/editing.svg" alt="edit"></td>
+                                <td></td>
+                                <td><input type="text" value="540"></td>
+                                <td>1005</td>
+                                <td style="text-align: left; padding-left: 75px">Строка</td>
+                                <td><input type="checkbox" class="checkbox" id="checkbox12" checked><label for="checkbox12"></label></td>
+                                <td><input type="checkbox" class="checkbox" id="checkbox13" checked><label for="checkbox13"></label></td>
+                                <td><input type="checkbox" class="checkbox" id="checkbox14"><label for="checkbox14"></label></td>
+                            </tr>
+                            <tr>
+                                <td><img src="images/tripple-dots.svg" class="toggle" alt="Toggle">Локация <img src="images/editing.svg" alt="edit"></td>
+                                <td></td>
+                                <td><input type="text" value="550"></td>
+                                <td>1006</td>
+                                <td style="text-align: left; padding-left: 75px">Справочник <img src="images/guide.svg" alt="directory"></td>
+                                <td><input type="checkbox" class="checkbox" id="checkbox15" checked><label for="checkbox15"></label></td>
+                                <td><input type="checkbox" class="checkbox" id="checkbox16" checked><label for="checkbox16"></label></td>
+                                <td><input type="checkbox" class="checkbox" id="checkbox17"><label for="checkbox17"></label></td>
+                            </tr>
+                            <tr>
+                                <td><img src="images/tripple-dots.svg" class="toggle" alt="Toggle">Количество <img src="images/editing.svg" alt="edit"></td>
+                                <td></td>
+                                <td><input type="text" value="560"></td>
+                                <td>1007</td>
+                                <td style="text-align: left; padding-left: 75px">Число</td>
+                                <td><input type="checkbox" class="checkbox" id="checkbox18" checked><label for="checkbox18"></label></td>
+                                <td><input type="checkbox" class="checkbox" id="checkbox19" checked><label for="checkbox19"></label></td>
+                                <td><input type="checkbox" class="checkbox" id="checkbox20"><label for="checkbox20"></label></td>
+                            </tr>
+                            <tr>
+                                <td><img src="images/tripple-dots.svg" class="toggle" alt="Toggle">Описание <img src="images/editing.svg" alt="edit"></td>
+                                <td></td>
+                                <td><input type="text" value="570"></td>
+                                <td>1008</td>
+                                <td style="text-align: left; padding-left: 75px">Текст</td>
+                                <td><input type="checkbox" class="checkbox" id="checkbox21" checked><label for="checkbox21"></label></td>
+                                <td><input type="checkbox" class="checkbox" id="checkbox22" checked><label for="checkbox22"></label></td>
+                                <td><input type="checkbox" class="checkbox" id="checkbox23"><label for="checkbox23"></label></td>
+                            </tr>
+                            <tr>
+                                <td><img src="images/tripple-dots.svg" class="toggle" alt="Toggle">Количество <img src="images/editing.svg" alt="edit"></td>
+                                <td></td>
+                                <td><input type="text" value="580"></td>
+                                <td>1009</td>
+                                <td style="text-align: left; padding-left: 75px">Число</td>
+                                <td><input type="checkbox" class="checkbox" id="checkbox24" checked><label for="checkbox24"></label></td>
+                                <td><input type="checkbox" class="checkbox" id="checkbox25" checked><label for="checkbox25"></label></td>
+                                <td><input type="checkbox" class="checkbox" id="checkbox26"><label for="checkbox26"></label></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="button-filled-big"><img src="images/plus-nobg.svg" alt="">Добавить поле</div>
+                    </div>
+                    <div class="user-tab" id="notifications-user">
+                        nothing here
+                    </div>
+                    <div class="user-tab" id="guide-user">
+                        nothing here
+                    </div>
+                    <div class="user-tab" id="user-user">
+                        nothing here
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
+    <div class="popup">
+        <div class="create-popup">
+            <h1>Создать локацию</h1>
+            <div class="popup-inputs">
+                <label>
+                    <input placeholder="Название" class="name">
+                </label>
+                <label>
+                    <input placeholder="Штрихкод" class="barcode" type="number">
+                </label>
+                <label>
+                    <input placeholder="RFID" class="rfid" type="number">
+                </label>
+                <label>
+                    <select name="Вложенность" class="custom-select">
+                        <option disabled selected hidden>Вложенность</option>
+                        <option>Локация 1</option>
+                        <option>Локация 2</option>
+                        <option>Локация 3</option>
+                    </select>
+                </label>
+            </div>
+            <div class="popup-switch">
+                <p>Виртуальная локация</p>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="popup-switch">
+                <p>Локация для утерь</p>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="popup-buttons">
+                <div class="button-filled-big create"><img src="images/save.svg" alt="">создать</div>
+                <div class="button-plaid-big close-create">отменить</div>
+            </div>
+        </div>
+        <div class="change-popup">
+            <h1>Изменить локацию %название%</h1>
+            <div class="popup-inputs">
+                <label>
+                    <input placeholder="Название" class="name">
+                </label>
+                <label>
+                    <input placeholder="Штрихкод" class="barcode" type="number">
+                </label>
+                <label>
+                    <input placeholder="RFID" class="rfid" type="number">
+                </label>
+                <label>
+                    <select name="Вложенность" class="custom-select">
+                        <option disabled selected hidden>Вложенность</option>
+                        <option>Локация 1</option>
+                        <option>Локация 2</option>
+                        <option>Локация 3</option>
+                    </select>
+                </label>
+            </div>
+            <div class="popup-switch">
+                <p>Виртуальная локация</p>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="popup-switch">
+                <p>Локация для утерь</p>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="popup-buttons">
+                <div class="button-plaid-big delete-loc"><img src="images/delete.svg" alt="">удалить</div>
+                <div class="button-plaid-big close-change">отменить</div>
+            </div>
+            <div class="button-filled-big save" style="width: calc(100% - 80px); justify-content: center"><img src="images/save.svg" alt="">сохранить</div>
         </div>
     </div>
     <footer>

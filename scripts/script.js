@@ -6,7 +6,7 @@ function getCurrentDateTime() {
     const now = new Date();
 
     const day = String(now.getDate()).padStart(2, '0');
-    const month = String(now.getMonth() + 1).padStart(2, '0'); // Месяцы начинаются с 0, поэтому добавляем 1
+    const month = String(now.getMonth() + 1).padStart(2, '0');
     const year = now.getFullYear();
 
     const hours = String(now.getHours()).padStart(2, '0');
@@ -29,12 +29,12 @@ document.addEventListener("DOMContentLoaded", function (){
 
     document.querySelector(".hide-menu").addEventListener("click", () => {
         document.querySelector('.menu').classList.toggle('collapsed');
+        document.querySelector('.footer-for-tab').classList.toggle('collapse')
     })
 
-    sync.addEventListener("click", (time) => {
+    sync.addEventListener("click", () => {
         sync.innerHTML = "<img src=\"../images/sync.svg\" alt=\"\">синхронизация <p class='small-sync'>" + getCurrentDateTime() + "</p>"
     })
-
 
     const menuButtons = document.querySelectorAll(".menu-block");
     const tabContents = document.querySelectorAll(".tab");
@@ -52,8 +52,19 @@ document.addEventListener("DOMContentLoaded", function (){
         });
     });
 
-    const userButtons = document.querySelectorAll(".user-button")
-    const userTab = document.querySelectorAll(".user-tab")
+    const userButtons = document.querySelectorAll(".user-button");
+    const userTab = document.querySelectorAll(".user-tab");
+    const locTabName = document.querySelector(".loc-tab-name");
+    const settingsTabName = document.querySelector(".settings-tab-name");
+    function updateTabName(activeButton) {
+        const activeTab = document.querySelector(".tab.active");
+
+        if (activeTab.id === "locations") {
+            locTabName.textContent = "Локации / " + activeButton.textContent.trim();
+        } else if (activeTab.id === "settings") {
+            settingsTabName.textContent = "Настройки / " + activeButton.textContent.trim();
+        }
+    }
 
     userButtons.forEach(button => {
         button.addEventListener("click", () => {
@@ -64,7 +75,70 @@ document.addEventListener("DOMContentLoaded", function (){
             userTab.forEach(content => content.classList.remove("active"));
 
             const tabId = button.getAttribute("data-user");
+
             document.getElementById(tabId).classList.add("active");
+
+            updateTabName(button);
         });
     });
+
+    const selectElement = document.querySelector('.custom-select');
+
+    selectElement.addEventListener('change', function () {
+        if (this.value === "") {
+            this.style.color = 'rgb(174, 174, 174)';
+        } else {
+            this.style.color = 'rgb(23, 33, 57)';
+        }
+    });
+
+    document.querySelector('.create-loc').addEventListener("click", () => {
+        document.querySelector('.popup').style.display = 'flex'
+        document.querySelector('.create-popup').style.display = 'flex'
+    })
+
+    document.querySelector('.close-create').addEventListener("click", () => {
+        document.querySelector('.popup').style.display = 'none'
+        document.querySelector('.create-popup').style.display = 'none'
+    })
+    document.querySelector('.close-change').addEventListener("click", () => {
+        document.querySelector('.popup').style.display = 'none'
+        document.querySelector('.change-popup').style.display = 'none'
+    })
+
+    const footersForTab = document.querySelector('.footer-for-tab');
+    const footersInfo = document.querySelector('.footer-info');
+
+    function updateFooterDisplay(tabId) {
+        if (tabId === 'settings') {
+            footersInfo.style.display = 'none';
+            footersForTab.style.display = 'flex';
+        } else {
+            footersInfo.style.display = 'flex';
+            footersForTab.style.display = 'none';
+        }
+    }
+
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.menu-block').forEach(menuBlock => menuBlock.classList.remove('active'));
+
+        document.getElementById(tabId).classList.add('active');
+        document.querySelector(`.menu-block[data-tab="${tabId}"]`).classList.add('active');
+
+        updateFooterDisplay(tabId);
+    }
+
+    document.querySelectorAll('.menu-block').forEach(menuBlock => {
+        menuBlock.addEventListener('click', function() {
+            const tabId = menuBlock.getAttribute('data-tab');
+            switchTab(tabId);
+        });
+    });
+
+    const activeMenuBlock = document.querySelector('.menu-block.active');
+    if (activeMenuBlock) {
+        const activeTabId = activeMenuBlock.getAttribute('data-tab');
+        switchTab(activeTabId);
+    }
 })

@@ -32,6 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const listContainer = document.querySelector('.locations');
+    const createButton = document.querySelector('.create');
+    const changePopup = document.querySelector('.change-popup');
+    let currentEditingLocation = null;
 
     function createLocationElement(location) {
         const locationDiv = document.createElement('div');
@@ -42,12 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
         locationHeader.innerHTML = `
             <div></div>
             <img src="images/plus.svg" class="toggle" alt="Toggle">
-            <img src="images/tripple-dots.svg" alt="Toggle">
+            <img src="images/tripple-dots.svg" class="toggle" alt="Toggle">
             <div class="location-use">
                 <p class="location-name">${location.name}</p>
                 <p class="location-value">${location.value}</p>
                 <div class="buttons hidden edit-loc"><img src="images/editing.svg" alt="">Редактировать</div>
-                <div class="buttons hidden delete-loc"><img src="images/delete.svg" alt="">Удалить</a>
+                <div class="buttons hidden delete-loc"><img src="images/delete.svg" alt="">Удалить</div>
             </div>
         `;
 
@@ -66,12 +69,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        const editButton = locationHeader.querySelector('.edit-loc');
+        editButton.addEventListener('click', () => {
+            currentEditingLocation = locationDiv;
+            openChangePopup(location);
+        });
+
+        const deleteButton = locationHeader.querySelector('.delete-loc');
+        deleteButton.addEventListener('click', () => {
+            locationDiv.remove();
+        });
+
         locationDiv.appendChild(locationHeader);
 
         if (location.sublocations) {
             const sublocationContainer = document.createElement('div');
             sublocationContainer.className = 'sublocations hidden';
-            location.sublocations.forEach((sublocation, index) => {
+            location.sublocations.forEach((sublocation) => {
                 sublocationContainer.appendChild(createSubLocationElement(sublocation));
             });
             locationDiv.appendChild(sublocationContainer);
@@ -88,8 +102,8 @@ document.addEventListener('DOMContentLoaded', () => {
         sublocationHeader.classList.add("sub-location-info");
         sublocationHeader.innerHTML = `
             <div></div>
-            ${sublocation.sublocations ? '<img src="images/plus.svg" class="toggle" alt="Toggle">' : ''}
-            <img src="images/tripple-dots.svg" alt="Toggle">
+            ${sublocation.sublocations ? '<img src="../images/plus.svg" class="toggle" alt="Toggle">' : ''}
+            <img src="images/tripple-dots.svg" class="toggle" alt="Toggle">
             <div class="sublocation-use">
                 <p class="sublocation-name">${sublocation.name}</p>
                 <p class="location-value">${sublocation.value}</p>
@@ -118,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (sublocation.sublocations) {
             const subsublocationContainer = document.createElement('div');
             subsublocationContainer.className = 'sublocations hidden';
-            sublocation.sublocations.forEach((subsublocation, index) => {
+            sublocation.sublocations.forEach((subsublocation) => {
                 subsublocationContainer.appendChild(createSubLocationElement(subsublocation));
             });
             sublocationDiv.appendChild(subsublocationContainer);
@@ -127,7 +141,41 @@ document.addEventListener('DOMContentLoaded', () => {
         return sublocationDiv;
     }
 
+    function openChangePopup() {
+        changePopup.style.display = 'flex';
+        document.querySelector('.popup').style.display = 'flex'
+    }
+
+    function saveChanges() {
+        if (currentEditingLocation) {
+            changePopup.style.display = 'none';
+            document.querySelector('.popup').style.display = 'none'
+            currentEditingLocation = null;
+        }
+    }
+
+    document.querySelector('.save').addEventListener('click', saveChanges);
+
     data.forEach(location => {
         listContainer.appendChild(createLocationElement(location));
+    });
+
+    createButton.addEventListener('click', () => {
+        const name = document.querySelector('.name').value;
+        const barcode = document.querySelector('.barcode').value;
+        const isVirtual = document.querySelector('.custom-select').checked;
+
+        const newLocation = {
+            name: name,
+            value: 0,
+            sublocations: [],
+            description: "",
+            barcode: isVirtual ? "Без штрихкода" : barcode
+        };
+
+        listContainer.appendChild(createLocationElement(newLocation));
+
+        document.querySelector('.popup').style.display = 'none';
+        document.querySelector('.create-popup').style.display = 'none';
     });
 });
